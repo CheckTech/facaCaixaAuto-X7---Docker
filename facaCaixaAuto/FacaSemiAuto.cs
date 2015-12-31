@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using win = System.Windows;
 using Corel.Interop.VGCore;
 namespace Bonus630.vsta.FacaCaixaAuto

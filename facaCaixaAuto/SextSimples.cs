@@ -20,14 +20,14 @@ namespace Bonus630.vsta.FacaCaixaAuto
         }
         public void Draw()
         {
-           // base.DrawBody();
-           // this.DrawVol();
-            //this.DrawTab();
-           // this.DrawTabBottomSide();
-           // this.DrawTabCoverSide();
-          //  this.DrawTabBottomFit();
-          //  this.drawTabQuad();
-          //  this.drawTabTria();
+            base.DrawBody();
+            this.DrawVol();
+           // this.DrawTab();
+            this.DrawTabBottomSide();
+            this.DrawTabCoverSide();
+            this.DrawTabBottomFit();
+            this.drawTabQuad();
+            this.drawTabTria();
             this.drawTabSex();
           
         }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Corel.Interop.VGCore;
 using win = System.Windows;
 
@@ -101,7 +99,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
                 newDoc = FacaBase.app.Application.ActiveDocument;
             }
             //newDoc.LayerChange += new DIDrawDocumentEvents_LayerChangeEventHandler(newDoc_LayerChange);
-            newDoc.LayerChange += new DIVGDocumentEvents_LayerChangeEventHandler(newDoc_LayerChange);
+            //newDoc.LayerChange += new DIVGDocumentEvents_LayerChangeEventHandler(newDoc_LayerChange);
             newDoc.Unit = cdrUnit.cdrMillimeter;
             newDoc.Rulers.HUnits = cdrUnit.cdrMillimeter;
             newDoc.Rulers.VUnits = cdrUnit.cdrMillimeter;
@@ -123,71 +121,71 @@ namespace Bonus630.vsta.FacaCaixaAuto
             }
             if (layerFaca == null)
                 layerFaca = FacaBase.app.ActivePage.CreateLayer("Faca");
-            createBonus630TM();
+           // createBonus630TM();
 
         }
 
 
-        void newDoc_LayerChange(Layer Layer)
-        {
-            if (Layer.Name == "bonus630TM")
-            {
-                if (!Layer.Visible)
-                    Layer.Visible = true;
-                if (Layer.Printable)
-                    Layer.Printable = false;
-                if (Layer.Editable)
-                    Layer.Editable = false;
+        //void newDoc_LayerChange(Layer Layer)
+        //{
+        //    if (Layer.Name == "bonus630TM")
+        //    {
+        //        if (!Layer.Visible)
+        //            Layer.Visible = true;
+        //        if (Layer.Printable)
+        //            Layer.Printable = false;
+        //        if (Layer.Editable)
+        //            Layer.Editable = false;
 
-            }
+        //    }
 
-        }
-
-
-        private void createBonus630TM()
-        {
-
-            Layer lb = null;
-            // Layers ls = FacaBase.app.ActivePage.AllLayers;
-            Layers ls = FacaBase.app.ActiveDocument.MasterPage.AllLayers;
-            foreach (Layer l in ls)
-            {
-
-                if (l.Name == "bonus630TM")
-                {
-                    lb = l;
-                    break;
-                }
-            }
-            if (lb == null)
-                //lb = newDoc.ActivePage.CreateLayer("bonus630TM");
-                lb = newDoc.MasterPage.CreateLayer("bonus630TM");
-            lb.Visible = true;
-            lb.Editable = false;
-            lb.Printable = false;
-            Shapes shapes = lb.Shapes;
-            bool exist = false;
-            foreach (Shape shape in shapes)
-            {
-                if (shape.Name == "bonus630TM")
-                {
-                    exist = true;
-                }
-            }
-            if (!exist)
-            {
-                Color cor = new Color();
-                cor.CMYKAssign(60, 0, 0, 50);
-
-                //global::System.Windows.MessageBox.Show(newDoc.ActivePage.BottomY.ToString());
-                Shape textBonus = lb.CreateArtisticText(newDoc.ActivePage.LeftX, newDoc.ActivePage.BottomY - 5, "Gerador de Corte e Vinco Bonus630," + System.Environment.NewLine + "Está aplicação é gratuita não pague por ela," + System.Environment.NewLine + " não se preocupe este texto não será impresso!", cdrTextLanguage.cdrBrazilianPortuguese
-                       , cdrTextCharSet.cdrCharSetDefault, "Verdana", 12.0f, cdrTriState.cdrFalse, cdrTriState.cdrFalse, cdrFontLine.cdrNoFontLine, cdrAlignment.cdrNoAlignment);
-                textBonus.Name = "bonus630TM";
-                textBonus.Fill.ApplyUniformFill(cor);
-            }
+        //}
 
 
-        }
+        //private void createBonus630TM()
+        //{
+
+        //    Layer lb = null;
+        //    // Layers ls = FacaBase.app.ActivePage.AllLayers;
+        //    Layers ls = FacaBase.app.ActiveDocument.MasterPage.AllLayers;
+        //    foreach (Layer l in ls)
+        //    {
+
+        //        if (l.Name == "bonus630TM")
+        //        {
+        //            lb = l;
+        //            break;
+        //        }
+        //    }
+        //    if (lb == null)
+        //        //lb = newDoc.ActivePage.CreateLayer("bonus630TM");
+        //        lb = newDoc.MasterPage.CreateLayer("bonus630TM");
+        //    lb.Visible = true;
+        //    lb.Editable = false;
+        //    lb.Printable = false;
+        //    Shapes shapes = lb.Shapes;
+        //    bool exist = false;
+        //    foreach (Shape shape in shapes)
+        //    {
+        //        if (shape.Name == "bonus630TM")
+        //        {
+        //            exist = true;
+        //        }
+        //    }
+        //    if (!exist)
+        //    {
+        //        Color cor = new Color();
+        //        cor.CMYKAssign(60, 0, 0, 50);
+
+        //        //global::System.Windows.MessageBox.Show(newDoc.ActivePage.BottomY.ToString());
+        //        Shape textBonus = lb.CreateArtisticText(newDoc.ActivePage.LeftX, newDoc.ActivePage.BottomY - 5, "Gerador de Corte e Vinco Bonus630," + System.Environment.NewLine + "Está aplicação é gratuita não pague por ela," + System.Environment.NewLine + " não se preocupe este texto não será impresso!", cdrTextLanguage.cdrBrazilianPortuguese
+        //               , cdrTextCharSet.cdrCharSetDefault, "Verdana", 12.0f, cdrTriState.cdrFalse, cdrTriState.cdrFalse, cdrFontLine.cdrNoFontLine, cdrAlignment.cdrNoAlignment);
+        //        textBonus.Name = "bonus630TM";
+        //        textBonus.Fill.ApplyUniformFill(cor);
+        //    }
+
+
+        //}
         private double convertToDouble(string numStr)
         {
             if (numStr.Contains(','))

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace Bonus630.vsta.FacaCaixaAuto
 {
-    class FacaMan
+    class FacaManager
     {
 
         private List<Type> typeCorrects;
         private IFaca objIFaca;
 
-        public FacaMan()
+        public FacaManager()
         {
             typeCorrects = new List<Type>();
             Type[] types = Assembly.GetExecutingAssembly().GetTypes();

@@ -21,7 +21,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
     public partial class FacaCaixaAutoUI : UserControl
     {
 
-        FacaMan manager;
+        FacaManager manager;
         Dictionary<string, bool> listaComboBox;
         Regex exp;
         
@@ -31,17 +31,17 @@ namespace Bonus630.vsta.FacaCaixaAuto
             if (FacaBase.app == null)
                 FacaBase.app = app;
            
-            manager = new FacaMan();
+            manager = new FacaManager();
             listaComboBox = manager.ListaClass();
             comboBox1.ItemsSource = listaComboBox.Keys;
             exp = new Regex("^(?<num>[0-9]{0,}[,.]?[0-9]{0,})", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             comboBox1.SelectedIndex = -1;
             #if DEBUG
-                comboBox1.SelectedIndex = 2;
-                textBox_Altura.Text = "500";
-                textBox_Largura.Text = "168";
-                textBox_Comprimento.Text = "334";
+                comboBox1.SelectedIndex = 1;
+                textBox_Altura.Text = "100";
+                textBox_Largura.Text = "60";
+                textBox_Comprimento.Text = "90";
             #endif
 
             comboBox1_SelectionChanged(null, null);
@@ -49,6 +49,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
 
             BitmapResources br = new BitmapResources();
             img_bonus.Source = br.Bonus630;
+            
 
         }
         

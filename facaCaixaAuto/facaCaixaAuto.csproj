@@ -74,7 +74,8 @@
     <Compile Include="FacaBase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FacaMan.cs" />
+    <Compile Include="FacaCase.cs" />
+    <Compile Include="FacaManager.cs" />
     <Compile Include="FacaPolyBase.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -134,10 +135,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "C:\Users\Reginaldo\AppData\Roaming\Corel\CorelDRAW Graphics Suite X7\Draw\GMS\$(TargetFileName)" /y
-
-
-if $(ConfigurationName) == Debug copy "$(TargetDir)\$(TargetName).pdb" "C:\Users\Reginaldo\AppData\Roaming\Corel\CorelDRAW Graphics Suite X7\Draw\GMS\$(TargetName).pdb"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "c:\Program Files\Corel\CorelDRAW Graphics Suite X7\Programs64\Addons\GFV630\$(TargetFileName)" /y
+if $(ConfigurationName) == Debug copy "$(TargetDir)\$(SolutionName).pdb" "c:\Program Files\Corel\CorelDRAW Graphics Suite X7\Programs64\Addons\GFV630\$(SolutionName).pdb" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

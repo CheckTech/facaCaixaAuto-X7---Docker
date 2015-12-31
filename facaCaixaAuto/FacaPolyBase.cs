@@ -81,7 +81,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
             Shape lineBottom = this.drawLineDashBlack(0, 0,this.NumFaces * length, 0);
             lineBottom.Name = "Vinco Base";
             Shape lineTop = this.drawLineDashBlack(0, this.height, this.NumFaces * length, this.height);
-            lineBottom.Name = "Vinco Topo";
+            lineTop.Name = "Vinco Topo";
             //desenha aba colagem
             win.Point[] points = new win.Point[4];
             points[0] = new win.Point(); points[0].X = 0; points[0].Y = 0;
@@ -91,6 +91,13 @@ namespace Bonus630.vsta.FacaCaixaAuto
             Shape tabGlue = this.connectPoints(points, 0, LineStyle.NormalBlack);
             tabGlue.Name = "Aba de Colagem";
         }
+        //protected override void DrawBody(double newHeight, double newWidth, double newLength)
+        //{
+        //    this.height = newHeight;
+        //    this.width = newWidth;
+        //    this.length = newLength;
+        //    this.DrawBody();
+        //}
         protected override void DrawVol() { }
         /// <summary>
         /// Desenha a aba no formato do poligono regular de n faces
