@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Corel.Interop.VGCore;
+using VGCore;
 using win = System.Windows;
 
 namespace Bonus630.vsta.FacaCaixaAuto
@@ -13,8 +13,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
 
         //comprimento = x | largura = y | altura = z
 
-        //public static Corel.Interop.CorelDRAW.Application app;
-        public static Corel.Interop.VGCore.Application app;
+        public static Application app;
         public static Document newDoc;
         protected double height;
         protected double width;
@@ -87,9 +86,9 @@ namespace Bonus630.vsta.FacaCaixaAuto
             return group;
 
         }
-        public FacaBase(string height, string width, string length)
+        protected void Draw()
         {
-            this.SetValues(height, width, length);
+            
             if (FacaBase.app.Documents.Count == 0)
             {
                 newDoc = FacaBase.app.Application.CreateDocument();
@@ -193,11 +192,17 @@ namespace Bonus630.vsta.FacaCaixaAuto
             return Convert.ToDouble(numStr);
         }
 
-        protected void SetValues(string height, string width, string length)
+        public void SetValues(string height, string width, string length)
         {
-            this.height = convertToDouble(height);
-            this.width = convertToDouble(width);
-            this.length = convertToDouble(length);
+            this.height = 0;
+            this.width = 0;
+            this.length = 0;
+            if(!string.IsNullOrEmpty(height))
+                this.height = convertToDouble(height);
+            if(!string.IsNullOrEmpty(width))
+                this.width = convertToDouble(width);
+             if(!string.IsNullOrEmpty(length))
+                 this.length = convertToDouble(length);
 
             //Fazendo está alteração para garantir o formato correto nas abas
             if(this.width>this.length)
@@ -282,43 +287,6 @@ namespace Bonus630.vsta.FacaCaixaAuto
         protected abstract void DrawBody();
         protected abstract void DrawTabCoverSide();
         protected abstract void DrawAreaArte();
-        //{
-
-        #region consulta pontinhado
-        //Corel.Interop.CorelDRAW.Shape l1 = layer.CreateLineSegment(0, 0, 0, this.altura);
-        //Corel.Interop.CorelDRAW.Shape l2 = layer.CreateLineSegment(0, 0, this.largura, 0);
-        //// *** Pontinhado****//
-        //object[] dashparam = { 5, 5 };
-        //OutlineStyle os = FacaBase.app.CreateOutlineStyle(2, dashparam);
-        //os.DashCount = 2;
-        //os.set_DashLength(1, 5);
-        //Corel.Interop.CorelDRAW.Color vermelho = new Corel.Interop.CorelDRAW.Color();
-        //vermelho.CMYKAssign(0, 100, 0, 0);
-        //l1.Outline.SetProperties(0.2, os, vermelho, null, null, cdrTriState.cdrUndefined, cdrTriState.cdrUndefined, cdrOutlineLineCaps.cdrOutlineUndefinedLineCaps, cdrOutlineLineJoin.cdrOutlineUndefinedLineJoin, -9999, 0, 0.4, 0, 0);
-        ////***fim pontinhado ***//
-
-
-
-
-        ////Outline ol = new Outline();
-        ////ol.SetProperties(2, os, null, null, null, cdrTriState.cdrUndefined, cdrTriState.cdrUndefined, cdrOutlineLineCaps.cdrOutlineUndefinedLineCaps, cdrOutlineLineJoin.cdrOutlineUndefinedLineJoin, -9999, 0, -1, 0, 0);
-        ////layer. 
-        //// Pen pen = new Pen();
-        //// DashStyle ds = new DashStyle();
-
-
-        //l1.AddToSelection();
-
-        //l2.AddToSelection();
-
-        //// app.ActiveSelection.Combine();
-
-        //// app.ActiveLayer.CreateRectangle2(0, 0, largura1, altura);
-
-        #endregion
-
-
-
-        //}
+       
     }
 }

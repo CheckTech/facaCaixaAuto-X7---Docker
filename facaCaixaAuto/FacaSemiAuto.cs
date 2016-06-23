@@ -1,6 +1,6 @@
 ﻿using System;
 using win = System.Windows;
-using Corel.Interop.VGCore;
+using VGCore;
 namespace Bonus630.vsta.FacaCaixaAuto
 {
     class FacaSemiAuto : FacaRectBase, IFaca
@@ -8,36 +8,39 @@ namespace Bonus630.vsta.FacaCaixaAuto
         public const string name = "Semi-Automática";
         public const bool simetric = false;
 
-        public FacaSemiAuto(string height, string width, string length)
-            : base(height, width, length)
+        public FacaSemiAuto()
+            : base()
         {
-            this.Draw();
+           
         }
         public void Draw()
         {
+            FacaBase.app.Optimization = true;
+            base.Draw();
             base.DrawBody();
             //this.DrawVol();
             //this.DrawTab();
             this.DrawTabBottomSide();
             this.DrawTabCoverSide();
             this.DrawTabBottomFit();
-            
+            FacaBase.app.Optimization = false;
+            FacaBase.app.Refresh();
         }
 
-       
+       public double CalcVolume()
+        {
+            return this.height * this.width * this.length; ;
+        }
 
         private void DrawTabBottomSide()
         {
             double c = 2 * length + width;
             win.Point[] points = new win.Point[5];
             points[0] = new win.Point(); points[0].X = c; points[0].Y = 0;
-            //pontos[1] = new Point(c, -comprimento * 2 / 3);
             points[1] = new win.Point();
             points[1].X = c; points[1].Y = -width * 2 / 3;
-            //pontos[2] = new Point(c + largura * 2 / 3 * Math.Tan(45 * Math.PI / 180), -comprimento * 2 / 3);
             points[2] = new win.Point();
             points[2].X = c + width * 2 / 3 * Math.Tan(45 * Math.PI / 180); points[2].Y = -width * 2 / 3;
-            //pontos[3] = new Point(c + largura / 2 * Math.Tan(45 * Math.PI / 180), -comprimento / 2);
             points[3] = new win.Point();
             points[3].X = c + width / 2 * Math.Tan(45 * Math.PI / 180); points[3].Y = -width / 2;
             points[4] = new win.Point();
@@ -46,9 +49,6 @@ namespace Bonus630.vsta.FacaCaixaAuto
             ae.Name = "Aba Aux Fundo Direito";
             points[0] = new win.Point();
             points[0].X = length; points[0].Y = 0;
-            //pontos[1] = new Point(comprimento + largura /2 * Math.Tan(45 * Math.PI / 180), -comprimento / 2);
-            //pontos[2] = new Point(comprimento+largura - largura * 2 / 3 * Math.Tan(45 * Math.PI / 180), -comprimento * 2 / 3);
-            //pontos[3] = new Point(comprimento + largura, -comprimento *2/3);
             points[1] = new win.Point();
             points[1].X = length + width / 2 * Math.Tan(45 * Math.PI / 180); points[1].Y = -width / 2;
             points[2] = new win.Point();

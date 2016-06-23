@@ -1,4 +1,4 @@
-﻿using Corel.Interop.VGCore;
+﻿using VGCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +14,17 @@ namespace Bonus630.vsta.FacaCaixaAuto
         public const bool simetric = false;
         private win.Point[] points;
 
-        public FacaCase(string height, string width, string length)
-            : base(height, width, length)
+        public FacaCase()
+            : base()
         {
             
-            this.Draw();
+            
         }
 
         public void Draw()
         {
+            FacaBase.app.Optimization = true;
+            base.Draw();
             this.DrawBody();
             this.DrawTabCoverSide(this.length,0);
             this.DrawTabCoverSide(this.width, this.length);
@@ -32,8 +34,13 @@ namespace Bonus630.vsta.FacaCaixaAuto
             this.DrawTabBottomSide(this.width, this.length);
             this.DrawTabBottomSide(this.length, this.length + this.width);
             this.DrawTabBottomSide(this.width, this.length * 2 + this.width);
+            FacaBase.app.Optimization = false;
+            FacaBase.app.Refresh();
         }
-
+        public double CalcVolume()
+        {
+            return this.height * this.width * this.length; ;
+        }
 
         public void Mirror()
         {

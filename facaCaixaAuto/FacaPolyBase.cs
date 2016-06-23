@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Corel.Interop.VGCore;
+using VGCore;
 using win = System.Windows;
 
 
@@ -21,11 +21,14 @@ namespace Bonus630.vsta.FacaCaixaAuto
         protected int NumFaces { get { return numFaces; } set { if (value > 2)numFaces = value; else numFaces = 4; findAngleRadius(); } } 
 
         
-        public FacaPolyBase(string height, string width, string length):base(height, width, length)
+        public FacaPolyBase():base()
         {
             
         }
+        public void Draw()
+        {
 
+        }
         private void findAngleRadius()
         {
           

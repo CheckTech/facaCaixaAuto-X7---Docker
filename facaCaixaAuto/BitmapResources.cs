@@ -9,10 +9,10 @@ using System.Windows.Media.Imaging;
 namespace Bonus630.vsta.FacaCaixaAuto
 {
     
-        public class BitmapResources
+        public static class BitmapResources
         {
           
-            private BitmapSource genereteBitmapSource(System.Drawing.Bitmap resource)
+            public static  BitmapSource ConvertToBitmapSource(this System.Drawing.Bitmap resource)
             {
                 var image = resource;
                 var bitmap = new System.Drawing.Bitmap(image);
@@ -26,13 +26,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
                 return bitmapSource;
             }
 
-            public BitmapSource Bonus630
-            {
-                get
-                {
-                    return genereteBitmapSource(FacaCaixaAuto.Properties.Resources.bonus630);
-                }
-            }
+            
             
            
         }

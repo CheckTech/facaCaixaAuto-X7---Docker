@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using win = System.Windows;
-using Corel.Interop.VGCore;
+using VGCore;
 namespace Bonus630.vsta.FacaCaixaAuto
 {
     class FacaAuto : FacaRectBase, IFaca
@@ -12,20 +12,29 @@ namespace Bonus630.vsta.FacaCaixaAuto
         public const string name = "Automática";
         public const bool simetric = false;
 
-        public FacaAuto(string height, string width, string length)
-            : base(height, width, length)
+        public FacaAuto()
+            : base()
         {
            // this.NumFaces = 4;
             this.isSimetric = false;
-            this.Draw();
+            
         }
+        
         public void Draw()
         {
+            FacaBase.app.Optimization = true;
+            base.Draw();
             base.DrawBody();
             //this.DrawVol();
             this.DrawTab();
             this.DrawTabBottomSide();
             this.DrawTabCoverSide();
+            FacaBase.app.Optimization = false;
+            FacaBase.app.Refresh();
+        }
+        public double CalcVolume()
+        {
+            return this.height * this.width * this.length; ;
         }
         public void Mirror() { }
         public void UpDown() { }
@@ -37,10 +46,7 @@ namespace Bonus630.vsta.FacaCaixaAuto
 
         public void DrawTab()
         {
-            //tang = cateto oposto / cateto adjacente
-            // comprimento x largura //
-            //Criar malha de pontos no sentido anti-horário
-            //Point[10] pontos;
+        
             double TanAngle = 0;
             if (width < length)
                 TanAngle = Math.Tan(45 * Math.PI / 180);
@@ -50,42 +56,19 @@ namespace Bonus630.vsta.FacaCaixaAuto
                 TanAngle = Math.Tan(30 * Math.PI / 180);
 
             win.Point[] points = new win.Point[11];
-           
-            //points[0] = new Point(0, 0);
             points[0] = new win.Point();
             points[0].X = 0; points[0].Y = 0;
-           // points[1] = new Point(Math.Tan(5 * Math.PI / 180) * 2 * width / 3, -(width / 3) * 2);
             points[1] = new win.Point();
-
-            //Alterando o ângulo do ponto 1x de 5º para 15º
             points[1].X = Math.Tan(15 * Math.PI / 180) * 2 * width / 3;
-            
             points[1].Y = -(width / 3) * 2;
-           // pontos[2] = new Point((comprimento / 2) - (TanAngulo * largura / 12), -(largura / 3) * 2);
-            //points[2] = new Point((length / 2) - (TanAngle * (width *3)/ 10), -(width / 3) * 2);
-            //angulo 2 é 135º
             points[2] = new win.Point();
-           // points[2].X = (length / 2) - (TanAngle * (width * 3) / 10); 
-
-            //Alterando o ponto 2x 
             points[2].X = (length / 2) - (width / 12);
-            
             points[2].Y = -(width / 3) * 2;
-           // pontos[3] = new Point(comprimento / 2, -(largura / 2) - (largura / 12));
-            //points[3] = new Point(length / 2, - (width / 15)*8);
-           
-            
             points[3] = new win.Point();
             points[3].X = length / 2;
-            
-            //Modificando ponto 3y de 15/8 para 12/7
-            //points[3].Y = -(width / 15) * 8;
-
             points[3].Y = -(width / 12) * 7;
-            //points[4] = new Point(length / 2, -(width / 2));
             points[4] = new win.Point();
             points[4].X = length / 2; points[4].Y = -(width / 2);
-            //pontos[5] = new Point(comprimento - TanAngulo * (largura / 2), -(largura / 2));
             points[5] = new win.Point();
             if (width == length)
             {
@@ -96,25 +79,14 @@ namespace Bonus630.vsta.FacaCaixaAuto
                 points[5].X =length - TanAngle * (width / 2);
                 points[5].Y = -(width / 2);
             }
-            
-
-           // points[6] = new Point((points[5].X) + width /6 * TanAngle, -(width / 3 * 2));
             points[6] = new win.Point();
             points[6].X = (points[5].X) + width / 6 * TanAngle; points[6].Y = -(width / 3 * 2);
-            //pontos[6] = pontos[5];
-            //points[7] = new Point(length - 2, points[6].Y);
             points[7] = new win.Point();
             points[7].X = length - 2; points[7].Y = points[6].Y;
-
-            //points[8] = new Point(length - 2, 2 * (-4 / Math.Tan(45*Math.PI/180)));
             points[8] = new win.Point();
             points[8].X = length - 2; points[8].Y = 2 * (-4 / Math.Tan(45 * Math.PI / 180));
-            //pontos[8] = new Point(comprimento - 2,2*(-4/TanAngulo));
-            //points[9] = new Point(length - 4, -4 / Math.Tan(45 * Math.PI / 180));
             points[9] = new win.Point();
             points[9].X = length - 4; points[9].Y = -4 / Math.Tan(45 * Math.PI / 180);
-           // pontos[9] = new Point(comprimento  - 4 , -4 / TanAngulo);
-            //points[10] = new Point(length, 0);
             points[10] = new win.Point();
             points[10].X = length; points[10].Y = 0;
             Shape tabLockBottomLeft = this.connectPoints(points, length, LineStyle.NormalBlack);
@@ -142,10 +114,6 @@ namespace Bonus630.vsta.FacaCaixaAuto
         {
             win.Point[] points = new win.Point[4];
 
-            //points[0] = new Point(length, 0);
-            //points[1] = new Point((Math.Tan(15 * Math.PI / 180) * width / 2) + length, -width / 2);
-            //points[2] = new Point((length + width) - (Math.Tan(45 * Math.PI / 180) * width / 2), -width / 2);
-           // points[3] = new Point(length + width, 0);
             points[0] = new win.Point();
             points[1] = new win.Point();
             points[2] = new win.Point();

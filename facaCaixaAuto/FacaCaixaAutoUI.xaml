@@ -26,6 +26,11 @@
             <Label Content="mm" FontSize="8" Height="28" HorizontalAlignment="Left" Margin="106,12,0,0" Name="label7" VerticalAlignment="Top" />
             <Label Content="mm" FontSize="8" Height="28" HorizontalAlignment="Left" Margin="167,12,0,0" Name="label8" VerticalAlignment="Top" />
         </Grid>
+        <Grid>
+            <Label Content="Volume:" Width="52" Height="auto" HorizontalAlignment="Left" />
+            <Label Content="0" Name="lba_vol" HorizontalAlignment="Left" Width="109" Margin="52,0,0,0"/>
+
+        </Grid>
         <Button Content="Gerar" Height="23" HorizontalAlignment="Left" Margin="0,0,-0,0" x:Name="btn_ir" VerticalAlignment="Top" Width="90" Click="btn_ir_Click" />
         <Grid Margin="0,8,0,0" Height="44" HorizontalAlignment="Left" Width="188">
             <Image Height="32" MouseUp="Image_MouseUp" Name="img_bonus" ToolTip="Desenvolvido por Bonus630" Cursor="Hand" Margin="146,10,0,2" HorizontalAlignment="Left" Width="32"/>

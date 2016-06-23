@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Corel.Interop.VGCore;
+using VGCore;
 using win = System.Windows;
 
 namespace Bonus630.vsta.FacaCaixaAuto
@@ -13,14 +13,18 @@ namespace Bonus630.vsta.FacaCaixaAuto
     /// </summary>
     public abstract class FacaRectBase : FacaBase
     {
-        public FacaRectBase(string height, string width, string length)
-            : base(height, width, length)
+        public FacaRectBase()
+            : base()
          { }
 
         protected override void DrawVol()
         {
             this.volume = this.height * this.width * this.length;
             base.drawVol();
+        }
+        protected void Draw()
+        {
+            base.Draw();
         }
         protected override void DrawBody()
         {

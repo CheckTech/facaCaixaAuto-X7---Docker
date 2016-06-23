@@ -24,8 +24,8 @@ namespace Bonus630.vsta.FacaCaixaAuto
         FacaManager manager;
         Dictionary<string, bool> listaComboBox;
         Regex exp;
-        
-        public FacaCaixaAutoUI(Corel.Interop.VGCore.Application app)
+        IFaca objFaca;
+        public FacaCaixaAutoUI(VGCore.Application app)
         {
             InitializeComponent();
             if (FacaBase.app == null)
@@ -45,23 +45,18 @@ namespace Bonus630.vsta.FacaCaixaAuto
             #endif
 
             comboBox1_SelectionChanged(null, null);
-            
-
-            BitmapResources br = new BitmapResources();
-            img_bonus.Source = br.Bonus630;
-            
+            img_bonus.Source = FacaCaixaAuto.Properties.Resources.bonus630.ConvertToBitmapSource();
 
         }
         
         private void btn_ir_Click(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(textBox_Altura.Text) && !String.IsNullOrEmpty(textBox_Largura.Text) && !String.IsNullOrEmpty(textBox_Comprimento.Text))
-                manager.inicialize(comboBox1.Text, new object[] { textBox_Altura.Text, textBox_Largura.Text, textBox_Comprimento.Text });
+                objFaca.Draw();
         }
 
         private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           // System.Windows.Forms.MessageBox.Show(comboBox1.SelectedItem.ToString());
             if (comboBox1.SelectedIndex == -1)
             {
                 textBox_Altura.IsEnabled = false;
@@ -78,10 +73,11 @@ namespace Bonus630.vsta.FacaCaixaAuto
                 else
                     textBox_Largura.IsEnabled = false;
                 btn_ir.IsEnabled = true;
+               objFaca = manager.inicialize(comboBox1.SelectedItem.ToString());
+               setValues();
+               calcVolume();
             }
 
-            //if (listaComboBox.ContainsKey(comboBox1.Text))
-            //    textBox_Largura.IsEnabled = !listaComboBox[comboBox1.Text];
         }
 
         private string checkField(string text)
@@ -94,23 +90,40 @@ namespace Bonus630.vsta.FacaCaixaAuto
         {
             textBox_Largura.Text = checkField(textBox_Largura.Text);
             textBox_Largura.CaretIndex = textBox_Largura.Text.Length;
+            setValues();
+            calcVolume();
         }
 
         private void textBox_Comprimento_KeyUp(object sender, KeyEventArgs e)
         {
             textBox_Comprimento.Text = checkField(textBox_Comprimento.Text);
             textBox_Comprimento.CaretIndex = textBox_Comprimento.Text.Length;
+            setValues();
+            calcVolume();
         }
 
         private void textBox_Altura_KeyUp(object sender, KeyEventArgs e)
         {
             textBox_Altura.Text = checkField(textBox_Altura.Text);
             textBox_Altura.CaretIndex = textBox_Altura.Text.Length;
+            setValues();
+            calcVolume();
         }
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("http://bonus630.tk");
+        }
+
+        private void calcVolume()
+        {
+            if(objFaca!=null)
+                lba_vol.Content = string.Format("{0} mm", objFaca.CalcVolume());
+        }
+        private void setValues()
+        {
+            if(objFaca!=null)
+                objFaca.SetValues(textBox_Altura.Text, textBox_Largura.Text, textBox_Comprimento.Text);
         }
               
     }

@@ -9,17 +9,25 @@ namespace Bonus630.vsta.FacaCaixaAuto
     {
         public const string name = "Redução Concêntrica";
         public const bool simetric = false;
-        public ReducaoConcentrica(string height, string width, string length)
-            : base(height, width, length)
+        public ReducaoConcentrica()
+            : base()
         {
-            this.Draw();
+            
         }
 
         public void Draw()
         {
+            FacaBase.app.Optimization = true;
+            base.Draw();
             FacaBase.app.ActiveLayer.CreateEllipse2(0, 0, 60, 0, 0, 180, false);
             FacaBase.app.ActiveLayer.CreateEllipse2(0, 0, 220, 0, 0, 180, false);
-           
+            FacaBase.app.Optimization = false;
+            FacaBase.app.Refresh();
+        
+        }
+        public double CalcVolume()
+        {
+            return 010101010;
         }
         protected override void DrawAreaArte() { }
         protected override void DrawTabCoverSide() { }

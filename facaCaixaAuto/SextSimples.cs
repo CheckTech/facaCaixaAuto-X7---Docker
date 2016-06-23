@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using win = System.Windows;
-using Corel.Interop.VGCore;
+using VGCore;
 namespace Bonus630.vsta.FacaCaixaAuto
 {
     class SextSimples : FacaPolyBase, IFaca 
@@ -12,14 +12,16 @@ namespace Bonus630.vsta.FacaCaixaAuto
         public const bool simetric = true;
         private win.Point[] points;
 
-        public SextSimples(string height, string width, string length)
-            : base(height, width, length)
+        public SextSimples()
+            : base()
         {
             this.NumFaces =6;
-             this.Draw();
+             
         }
         public void Draw()
         {
+            FacaBase.app.Optimization = true;
+            base.Draw();
             base.DrawBody();
             this.DrawVol();
            // this.DrawTab();
@@ -29,10 +31,14 @@ namespace Bonus630.vsta.FacaCaixaAuto
             this.drawTabQuad();
             this.drawTabTria();
             this.drawTabSex();
-          
+            FacaBase.app.Optimization = false;
+            FacaBase.app.Refresh();
         }
 
-       
+       public double CalcVolume()
+        {
+            return 0101010101;
+        }
             
         
 

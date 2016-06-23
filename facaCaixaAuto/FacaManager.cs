@@ -33,21 +33,23 @@ namespace Bonus630.vsta.FacaCaixaAuto
             }
             return lista;
         }
-        private void generateNewInstance(string nameClass, params object[] args)
+        private IFaca generateNewInstance(string nameClass)
         {
             foreach (Type type in typeCorrects)
             {
                 if (nameClass == type.GetField("name").GetValue(new object()).ToString())
                 {
-                    objIFaca = Activator.CreateInstance(type, args) as IFaca;
-                    break;
+                    objIFaca = Activator.CreateInstance(type) as IFaca;
+                    return objIFaca;
+                   
                 }
 
             }
+            return null;
         }
-        public void inicialize(string nameClass, params object[] args)
+        public IFaca inicialize(string nameClass)
         {
-            generateNewInstance(nameClass, args);
+            return generateNewInstance(nameClass);
             
         }
         public string version
